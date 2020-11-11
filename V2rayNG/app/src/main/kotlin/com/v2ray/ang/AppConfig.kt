@@ -5,14 +5,13 @@ package com.v2ray.ang
  * App Config Const
  */
 object AppConfig {
-    const val ANG_PACKAGE = "com.v2ray.ang"
+    const val ANG_PACKAGE = "com.V2flyA"
     const val ANG_CONFIG = "ang_config"
     const val PREF_CURR_CONFIG = "pref_v2ray_config"
     const val PREF_CURR_CONFIG_GUID = "pref_v2ray_config_guid"
     const val PREF_CURR_CONFIG_NAME = "pref_v2ray_config_name"
     const val PREF_CURR_CONFIG_DOMAIN = "pref_v2ray_config_domain"
     const val PREF_CURR_CONFIG_OUTBOUND_TAGS = "pref_v2ray_config_outbound_tags"
-    const val PREF_INAPP_BUY_IS_PREMIUM = "pref_inapp_buy_is_premium"
     const val PREF_MODE = "pref_mode"
 
     const val VMESS_PROTOCOL: String = "vmess://"
