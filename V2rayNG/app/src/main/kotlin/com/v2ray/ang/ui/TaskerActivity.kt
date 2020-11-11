@@ -25,8 +25,6 @@ class TaskerActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tasker)
-
-        //add def value
         lstData.add("Default")
         lstGuid.add(AppConfig.TASKER_DEFAULT_GUID)
 
@@ -38,7 +36,6 @@ class TaskerActivity : BaseActivity() {
                 android.R.layout.simple_list_item_single_choice, lstData)
         listview = findViewById<View>(R.id.listview) as ListView
         listview!!.adapter = adapter
-
         init()
     }
 
@@ -59,7 +56,6 @@ class TaskerActivity : BaseActivity() {
             }
         } catch (e: WriterException) {
             e.printStackTrace()
-
         }
     }
 

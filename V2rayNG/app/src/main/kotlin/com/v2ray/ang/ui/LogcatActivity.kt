@@ -50,9 +50,6 @@ class LogcatActivity : BaseActivity() {
                 lst.add("-s")
                 lst.add("GoLog,tun2socks,com.v2ray.ang")
                 val process = Runtime.getRuntime().exec(lst.toTypedArray())
-//                val bufferedReader = BufferedReader(
-//                        InputStreamReader(process.inputStream))
-//                val allText = bufferedReader.use(BufferedReader::readText)
                 val allText = process.inputStream.bufferedReader().use { it.readText() }
                 launch(Dispatchers.Main) {
                     tv_logcat.text = allText

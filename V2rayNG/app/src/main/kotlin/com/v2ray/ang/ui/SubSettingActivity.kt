@@ -1,7 +1,7 @@
 package com.v2ray.ang.ui
 
 import android.content.Intent
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import com.v2ray.ang.R
