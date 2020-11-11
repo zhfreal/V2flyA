@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_bg"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/item_bg"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical">
@@ -97,8 +98,9 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/colorPing"
-                        android:textSize="10sp" />
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="10sp"
+                            tools:ignore="SmallSp" />
                 </LinearLayout>
 
                 <LinearLayout

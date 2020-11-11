@@ -31,8 +31,6 @@ abstract class BaseDrawerActivity : BaseActivity() {
 
     private var mItemToOpenWhenDrawerCloses = -1
 
-    private val backStackChangedListener = FragmentManager.OnBackStackChangedListener { updateDrawerToggle() }
-
     private val drawerListener = object : DrawerLayout.DrawerListener {
         override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
             mDrawerToggle!!.onDrawerSlide(drawerView, slideOffset)
@@ -40,7 +38,6 @@ abstract class BaseDrawerActivity : BaseActivity() {
 
         override fun onDrawerOpened(drawerView: View) {
             mDrawerToggle!!.onDrawerOpened(drawerView)
-            //supportActionBar!!.setTitle(R.string.app_name)
         }
 
         override fun onDrawerClosed(drawerView: View) {
@@ -55,10 +52,6 @@ abstract class BaseDrawerActivity : BaseActivity() {
                     R.id.settings -> activityClass = SettingsActivity::class.java
                     R.id.logcat -> {
                         startActivity(Intent(this@BaseDrawerActivity, LogcatActivity::class.java))
-                        return
-                    }
-                    R.id.donate -> {
-//                        startActivity<InappBuyActivity>()
                         return
                     }
                 }
@@ -88,15 +81,10 @@ abstract class BaseDrawerActivity : BaseActivity() {
 
     public override fun onResume() {
         super.onResume()
-        // Whenever the fragment back stack changes, we may need to update the
-        // action bar toggle: only top level screens show the hamburger-like icon, inner
-        // screens - either Activities or fragments - show the "Up" icon instead.
-        fragmentManager.addOnBackStackChangedListener(backStackChangedListener)
     }
 
     public override fun onPause() {
         super.onPause()
-        fragmentManager.removeOnBackStackChangedListener(backStackChangedListener)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

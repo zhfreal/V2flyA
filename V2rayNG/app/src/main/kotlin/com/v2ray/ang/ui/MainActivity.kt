@@ -1,6 +1,7 @@
 package com.v2ray.ang.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -60,6 +61,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private var mItemTouchHelper: ItemTouchHelper? = null
     private val tcpingTestScope by lazy { CoroutineScope(Dispatchers.IO) }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -82,8 +84,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
         layout_test.setOnClickListener {
             if (isRunning) {
-                val socksPort = 10808//Utils.parseInt(defaultDPreference.getPrefString(SettingsActivity.PREF_SOCKS_PORT, "10808"))
-
+                val socksPort = 10808
+                //val socksPort = Utils.parseInt(defaultDPreference.getPrefString(SettingsActivity.PREF_SOCKS_PORT, "10808"))
                 tv_test_state.text = getString(R.string.connection_test_testing)
                 GlobalScope.launch(Dispatchers.IO) {
                     val result = Utils.testConnection(this@MainActivity, socksPort)
@@ -91,8 +93,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         tv_test_state.text = Utils.getEditable(result)
                     }
                 }
-            } else {
-//                tv_test_state.text = getString(R.string.connection_test_fail)
             }
         }
 
@@ -113,12 +113,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         version.text = "v${BuildConfig.VERSION_NAME} (${Libv2ray.checkVersionX()})"
     }
 
-    fun startV2Ray() {
+    private fun startV2Ray() {
         if (configs.index < 0) {
             return
         }
         showCircle()
-//        toast(R.string.toast_services_start)
         if (!Utils.startVService(this)) {
             hideCircle()
         }
@@ -127,11 +126,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onStart() {
         super.onStart()
         isRunning = false
-
-//        val intent = Intent(this.applicationContext, V2RayVpnService::class.java)
-//        intent.`package` = AppConfig.ANG_PACKAGE
-//        bindService(intent, mConnection, BIND_AUTO_CREATE)
-
         mMsgReceive = ReceiveMessageHandler(this@MainActivity)
         registerReceiver(mMsgReceive, IntentFilter(AppConfig.BROADCAST_ACTION_ACTIVITY))
         MessageUtil.sendMsg2Service(this, AppConfig.MSG_REGISTER_CLIENT, "")
@@ -226,26 +220,17 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             importQRcode(REQUEST_SCAN_URL)
             true
         }
-
-//        R.id.sub_setting -> {
-//            startActivity<SubSettingActivity>()
-//            true
-//        }
-
         R.id.sub_update -> {
             importConfigViaSub()
             true
         }
-
         R.id.export_all -> {
             if (AngConfigManager.shareAll2Clipboard() == 0) {
-                //remove toast, otherwise it will block previous warning message
             } else {
                 toast(R.string.toast_failure)
             }
             true
         }
-
         R.id.ping_all -> {
             tcpingTestScope.coroutineContext[Job]?.cancelChildren()
             Utils.closeAllTcpSockets()
@@ -273,28 +258,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             }
             true
         }
-
-//        R.id.settings -> {
-//            startActivity<SettingsActivity>("isRunning" to isRunning)
-//            true
-//        }
-//        R.id.logcat -> {
-//            startActivity<LogcatActivity>()
-//            true
-//        }
         else -> super.onOptionsItemSelected(item)
     }
 
 
-    /**
-     * import config from qrcode
-     */
-    fun importQRcode(requestCode: Int): Boolean {
-//        try {
-//            startActivityForResult(Intent("com.google.zxing.client.android.SCAN")
-//                    .addCategory(Intent.CATEGORY_DEFAULT)
-//                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP), requestCode)
-//        } catch (e: Exception) {
+    private fun importQRcode(requestCode: Int): Boolean {
         RxPermissions(this)
                 .request(Manifest.permission.CAMERA)
                 .subscribe {
@@ -303,14 +271,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     else
                         toast(R.string.toast_permission_denied)
                 }
-//        }
         return true
     }
 
     /**
      * import config from clipboard
      */
-    fun importClipboard()
+    private fun importClipboard()
             : Boolean {
         try {
             val clipboard = Utils.getClipboard(this)
@@ -322,7 +289,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    fun importBatchConfig(server: String?, subid: String = "") {
+    private fun importBatchConfig(server: String?, subid: String = "") {
         val count = AngConfigManager.importBatchConfig(server, subid)
         if (count > 0) {
             toast(R.string.toast_success)
@@ -332,7 +299,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         }
     }
 
-    fun importConfigCustomClipboard()
+    private fun importConfigCustomClipboard()
             : Boolean {
         try {
             val configText = Utils.getClipboard(this)
@@ -351,7 +318,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     /**
      * import config from local config file
      */
-    fun importConfigCustomLocal(): Boolean {
+    private fun importConfigCustomLocal(): Boolean {
         try {
             showFileChooser()
         } catch (e: Exception) {
@@ -361,7 +328,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    fun importConfigCustomUrlClipboard()
+    private fun importConfigCustomUrlClipboard()
             : Boolean {
         try {
             val url = Utils.getClipboard(this)
@@ -379,7 +346,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     /**
      * import config from url
      */
-    fun importConfigCustomUrl(url: String?): Boolean {
+    private fun importConfigCustomUrl(url: String?): Boolean {
         try {
             if (!Utils.isValidUrl(url)) {
                 toast(R.string.toast_invalid_url)
@@ -406,11 +373,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     /**
      * import config from sub
      */
-    fun importConfigViaSub()
+    private fun importConfigViaSub()
             : Boolean {
         try {
             toast(R.string.title_sub_update)
-            val subItem = AngConfigManager.configs.subItem
+            val subItem = configs.subItem
             for (k in 0 until subItem.count()) {
                 if (TextUtils.isEmpty(subItem[k].id)
                         || TextUtils.isEmpty(subItem[k].remarks)
@@ -450,7 +417,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "*/*"
         intent.addCategory(Intent.CATEGORY_OPENABLE)
-
         try {
             startActivityForResult(
                     Intent.createChooser(intent, getString(R.string.title_file_chooser)),
@@ -466,7 +432,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private fun readContentFromUri(uri: Uri) {
         RxPermissions(this)
                 .request(Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe {
+                .subscribe { it ->
                     if (it) {
                         try {
                             contentResolver.openInputStream(uri).use {
@@ -484,7 +450,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     /**
      * import customize config
      */
-    fun importCustomizeConfig(server: String?) {
+    private fun importCustomizeConfig(server: String?) {
         if (server == null) {
             return
         }
@@ -514,7 +480,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     var mMsgReceive: BroadcastReceiver? = null
 
     private class ReceiveMessageHandler(activity: MainActivity) : BroadcastReceiver() {
-        internal var mReference: SoftReference<MainActivity> = SoftReference(activity)
+        var mReference: SoftReference<MainActivity> = SoftReference(activity)
         override fun onReceive(ctx: Context?, intent: Intent?) {
             val activity = mReference.get()
             when (intent?.getIntExtra("key", 0)) {
@@ -586,12 +552,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.feedback -> {
                 Utils.openUri(this, AppConfig.v2rayNGIssues)
             }
-            R.id.promotion -> {
-                Utils.openUri(this, AppConfig.promotionUrl)
-            }
-            R.id.donate -> {
-//                startActivity<InappBuyActivity>()
-            }
+
             R.id.logcat -> {
                 startActivity(Intent(this, LogcatActivity::class.java))
             }

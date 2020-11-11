@@ -39,7 +39,7 @@
                     android:layout_marginStart="15dp"
                     android:text="@string/connection_test_pending"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/colorPrimary_light" />
+                    android:textColor="@android:color/darker_gray" />
         </LinearLayout>
 
         <com.github.jorgecastilloprz.FABProgressCircle
@@ -102,7 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:textColor="@color/accent" />
+                    android:textColor="@android:color/darker_gray" />
         </LinearLayout>
     </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
