@@ -8,3 +8,5 @@ V2rayNG/app/release/output.json
 .idea/
 .gradle/
 *.aar
+
+V2rayNG/libv2ray/build/

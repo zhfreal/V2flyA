@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion Integer.parseInt("$compileSdkVer")
-    buildToolsVersion buildToolsVer
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
         minSdkVersion 17
@@ -19,7 +19,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     implementation "com.android.support:support-annotations:$supportLibVersion"
     implementation 'com.google.code.gson:gson:2.8.6'
 }

@@ -8,8 +8,7 @@ type Status struct {
 	IsRunning       bool
 	PackageName     string
 	PackageCodePath string
-
-	Vpoint v2core.Server
+	Vpoint          v2core.Server
 }
 
 func CheckVersion() int {
@@ -53,7 +52,6 @@ func (v *Status) GetTun2socksArgs(localDNS bool, enableIPv6 bool) (ret []string)
 
 func (v *Status) GetVPNSetupArg(localDNS bool, enableIPv6 bool) (ret string) {
 	ret = "m,1500 a,26.26.26.1,30 r,0.0.0.0,0"
-
 	if enableIPv6 {
 		ret += " a,da26:2626::1,126 r,::,0"
 	}
