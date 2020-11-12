@@ -34,7 +34,7 @@ import libv2ray.Libv2ray
 import java.lang.ref.SoftReference
 import java.net.URL
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : FloatingrainActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
         private const val REQUEST_CODE_VPN_PREPARE = 0
         private const val REQUEST_SCAN = 1
@@ -61,7 +61,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         title = getString(R.string.title_server)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(toolbar_main)
 
         fab.setOnClickListener {
             if (isRunning) {
@@ -88,7 +88,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
 
         val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+                this, drawer_layout, toolbar_main, R.string.navigation_drawer_open, R.string
+                .navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         nav_view.setNavigationItemSelectedListener(this)
@@ -199,8 +200,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             true
         }
         R.id.export_all -> {
-            if (AngConfigManager.shareAll2Clipboard() == 0) {
-            } else {
+            if (AngConfigManager.shareAll2Clipboard() != 0) {
                 toast(R.string.toast_failure)
             }
             true

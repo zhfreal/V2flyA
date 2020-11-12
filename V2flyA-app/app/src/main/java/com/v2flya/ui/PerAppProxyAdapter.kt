@@ -10,7 +10,7 @@ import com.v2flya.dto.AppInfo
 import kotlinx.android.synthetic.main.item_recycler_bypass_list.view.*
 import java.util.*
 
-class PerAppProxyAdapter(val activity: BaseActivity, val apps: List<AppInfo>, blacklist: MutableSet<String>?) :
+class PerAppProxyAdapter(val activity: FloatingrainActivity, val apps: List<AppInfo>, blacklist: MutableSet<String>?) :
         RecyclerView.Adapter<PerAppProxyAdapter.BaseViewHolder>() {
 
     companion object {
@@ -18,7 +18,7 @@ class PerAppProxyAdapter(val activity: BaseActivity, val apps: List<AppInfo>, bl
         private const val VIEW_TYPE_ITEM = 1
     }
 
-    private var mActivity: BaseActivity = activity
+    private var mActivity: FloatingrainActivity = activity
     val blacklist = if (blacklist == null) HashSet<String>() else HashSet<String>(blacklist)
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {

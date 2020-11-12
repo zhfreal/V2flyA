@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import java.util.LinkedHashSet
 
-class LogcatActivity : BaseActivity() {
+class LogcatActivity : FloatingrainActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

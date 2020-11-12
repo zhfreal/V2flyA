@@ -17,7 +17,7 @@ import com.v2flya.AppConfig
 import kotlinx.android.synthetic.main.activity_tasker.*
 
 
-class TaskerActivity : BaseActivity() {
+class TaskerActivity : FloatingrainActivity() {
     private var listview: ListView? = null
     private var lstData: ArrayList<String> = ArrayList()
     private var lstGuid: ArrayList<String> = ArrayList()

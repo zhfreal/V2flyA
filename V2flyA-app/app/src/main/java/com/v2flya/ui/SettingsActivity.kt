@@ -8,7 +8,7 @@ import com.v2flya.AppConfig
 import com.v2flya.extension.toast
 import com.v2flya.util.Utils
 
-class SettingsActivity : BaseActivity() {
+class SettingsActivity : FloatingrainActivity() {
     companion object {
         const val PREF_PER_APP_PROXY = "pref_per_app_proxy"
         const val PREF_SPEED_ENABLED = "pref_speed_enabled"

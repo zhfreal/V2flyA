@@ -15,7 +15,7 @@ import com.v2flya.R
 import com.v2flya.extension.toast
 import com.v2flya.util.QRCodeDecoder
 
-class ScannerActivity : BaseActivity(), ZXingScannerView.ResultHandler {
+class ScannerActivity : FloatingrainActivity(), ZXingScannerView.ResultHandler {
     companion object {
         private const val REQUEST_FILE_CHOOSER = 2
     }

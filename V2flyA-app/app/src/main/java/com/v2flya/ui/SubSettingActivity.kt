@@ -8,7 +8,7 @@ import com.v2flya.R
 import kotlinx.android.synthetic.main.activity_sub_setting.*
 import android.os.Bundle
 
-class SubSettingActivity : BaseActivity() {
+class SubSettingActivity : FloatingrainActivity() {
 
     private val adapter by lazy { SubSettingRecyclerAdapter(this) }
 

@@ -12,7 +12,7 @@ import com.v2flya.util.AngConfigManager
 import com.v2flya.util.Utils
 import kotlinx.android.synthetic.main.activity_sub_edit.*
 
-class SubEditActivity : BaseActivity() {
+class SubEditActivity : FloatingrainActivity() {
 
     var del_config: MenuItem? = null
     var save_config: MenuItem? = null

@@ -6,10 +6,9 @@ import com.tbruyelle.rxpermissions.RxPermissions
 import com.v2flya.R
 import com.v2flya.util.AngConfigManager
 import android.os.Bundle
-import com.v2flya.ui.MainActivity
 import com.v2flya.extension.toast
 
-class ScScannerActivity : BaseActivity() {
+class ScScannerActivity : FloatingrainActivity() {
     companion object {
         private const val REQUEST_SCAN = 1
     }

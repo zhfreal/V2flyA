@@ -12,7 +12,7 @@ import com.v2flya.util.AngConfigManager
 import com.v2flya.util.Utils
 import kotlinx.android.synthetic.main.activity_server3.*
 
-class ShadowsocksActivity : BaseActivity() {
+class ShadowsocksActivity : FloatingrainActivity() {
     companion object {
         private const val REQUEST_SCAN = 1
     }

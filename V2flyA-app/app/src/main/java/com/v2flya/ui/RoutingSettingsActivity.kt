@@ -8,7 +8,7 @@ import com.v2flya.AppConfig
 import kotlinx.android.synthetic.main.activity_routing_settings.*
 
 
-class RoutingSettingsActivity : BaseActivity() {
+class RoutingSettingsActivity : FloatingrainActivity() {
     private val titles: Array<out String> by lazy {
         resources.getStringArray(R.array.routing_tag)
     }

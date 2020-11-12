@@ -34,7 +34,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
 
-class PerAppProxyActivity : BaseActivity() {
+class PerAppProxyActivity : FloatingrainActivity() {
     companion object {
         const val PREF_PER_APP_PROXY_SET = "pref_per_app_proxy_set"
         const val PREF_BYPASS_APPS = "pref_bypass_apps"

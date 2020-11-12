@@ -5,7 +5,7 @@ import com.v2flya.util.Utils
 import android.os.Bundle
 import com.v2flya.service.V2RayServiceManager
 
-class ScSwitchActivity : BaseActivity() {
+class ScSwitchActivity : FloatingrainActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         moveTaskToBack(true)

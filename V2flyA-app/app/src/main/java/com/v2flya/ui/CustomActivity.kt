@@ -17,10 +17,7 @@ import com.v2flya.util.Utils
 import kotlinx.android.synthetic.main.activity_server2.*
 import java.lang.Exception
 
-class CustomActivity : BaseActivity() {
-    companion object {
-        private const val REQUEST_SCAN = 1
-    }
+class CustomActivity : FloatingrainActivity() {
 
     var del_config: MenuItem? = null
     var save_config: MenuItem? = null

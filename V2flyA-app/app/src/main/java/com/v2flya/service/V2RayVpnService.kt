@@ -128,18 +128,15 @@ class V2RayVpnService : VpnService(), ServiceControl {
 
         builder.setSession(defaultDPreference.getPrefString(AppConfig.PREF_CURR_CONFIG_NAME, ""))
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
-                defaultDPreference.getPrefBoolean(SettingsActivity.PREF_PER_APP_PROXY, false)) {
-            val apps = defaultDPreference.getPrefStringSet(PerAppProxyActivity.PREF_PER_APP_PROXY_SET, null)
-            val bypassApps = defaultDPreference.getPrefBoolean(PerAppProxyActivity.PREF_BYPASS_APPS, false)
-            apps?.forEach {
-                try {
-                    if (bypassApps)
-                        builder.addDisallowedApplication(it)
-                    else
-                        builder.addAllowedApplication(it)
-                } catch (e: PackageManager.NameNotFoundException) {
-                }
+        val apps = defaultDPreference.getPrefStringSet(PerAppProxyActivity.PREF_PER_APP_PROXY_SET, null)
+        val bypassApps = defaultDPreference.getPrefBoolean(PerAppProxyActivity.PREF_BYPASS_APPS, false)
+        apps?.forEach {
+            try {
+                if (bypassApps)
+                    builder.addDisallowedApplication(it)
+                else
+                    builder.addAllowedApplication(it)
+            } catch (e: PackageManager.NameNotFoundException) {
             }
         }
         try {
