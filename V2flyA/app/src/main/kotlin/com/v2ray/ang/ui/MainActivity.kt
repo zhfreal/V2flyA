@@ -185,10 +185,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             importQRcode(REQUEST_SCAN)
             true
         }
-        R.id.import_clipboard -> {
-            importClipboard()
-            true
-        }
         R.id.import_manually_vmess -> {
             startActivity(getOptionIntent().setClass(this, ServerActivity::class.java))
             adapter.updateConfigList()
@@ -199,11 +195,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             adapter.updateConfigList()
             true
         }
-        R.id.import_manually_socks -> {
-            startActivity(getOptionIntent().setClass(this, Server4Activity::class.java))
-            adapter.updateConfigList()
-            true
-        }
+
         R.id.import_config_custom_clipboard -> {
             importConfigCustomClipboard()
             true
@@ -548,9 +540,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             R.id.settings -> {
                 startActivity(Intent(this, SettingsActivity::class.java)
                         .putExtra("isRunning", isRunning))
-            }
-            R.id.feedback -> {
-                Utils.openUri(this, AppConfig.v2rayNGIssues)
             }
 
             R.id.logcat -> {

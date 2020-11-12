@@ -72,8 +72,6 @@ object V2RayServiceManager {
     private class V2RayCallback : V2RayVPNServiceSupportsSet {
         override fun shutdown(): Long {
             val serviceControl = serviceControl?.get() ?: return -1
-            // called by go
-            // shutdown the whole vpn service
             return try {
                 serviceControl.stopService()
                 0

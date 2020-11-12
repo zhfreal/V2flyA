@@ -17,10 +17,6 @@
                 android:icon="@drawable/ic_logcat_white_24dp"
                 android:title="@string/title_logcat" />
         <item
-                android:id="@+id/feedback"
-                android:icon="@drawable/ic_feedback_white_24dp"
-                android:title="@string/title_pref_feedback" />
-        <item
                 android:id="@+id/placeholder"
                 android:enabled="false"
                 android:title="" />
