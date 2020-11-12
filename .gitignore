@@ -10,3 +10,5 @@ V2rayNG/app/release/output.json
 *.aar
 
 V2rayNG/libv2ray/build/
+
+V2flyA/libv2ray/build/

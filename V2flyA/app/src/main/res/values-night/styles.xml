@@ -1,0 +1,16 @@
+<!--夜间主题-->
+<resources>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="drawerArrowStyle">@style/LeftButton</item>
+    </style>
+
+    <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">#FFFFFF</item>
+        <item name="android:background">#000000</item>
+    </style>
+
+    <style name="LeftButton" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#FFFFFF</item>
+    </style>
+</resources>

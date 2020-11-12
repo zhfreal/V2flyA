@@ -31,7 +31,6 @@
             tools:ignore="AllowBackup">
         <activity
                 android:name=".ui.MainActivity"
-                android:theme="@style/AppTheme.NoActionBar"
                 android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,8 +75,7 @@
         <activity
                 android:name=".ui.ScSwitchActivity"
                 android:excludeFromRecents="true"
-                android:process=":RunSoLibV2RayDaemon"
-                android:theme="@style/AppTheme.NoActionBar.Translucent" />
+                android:process=":RunSoLibV2RayDaemon" />
 
         <service
                 android:name=".service.V2RayVpnService"

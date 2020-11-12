@@ -1,20 +1,19 @@
+<!--白天主题-->
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="drawerArrowStyle">@style/LeftButton</item>
+        <!--傻逼MD官方实现导致右侧折叠菜单按钮是黑色，只有这样可以解决，找了半天cnmb-->
+        <item name="android:textColorSecondary">#FFFFFF</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">#FFFFFF</item>
+        <item name="android:background">#5c8ef6</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.Translucent">
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
+    <!--傻逼MD官方实现导致左侧抽屉箭头切换按钮是黑色，只有这样可以解决，找了半天cnmb-->
+    <style name="LeftButton" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">#FFFFFF</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>
