@@ -2,17 +2,22 @@ package com.v2ray.ang.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
+import android.text.Editable
 import android.text.TextUtils
 import android.view.Menu
 import android.view.MenuItem
+import com.google.gson.Gson
+import com.v2ray.ang.AppConfig
 import com.v2ray.ang.R
+import com.v2ray.ang.extension.defaultDPreference
 import com.v2ray.ang.dto.AngConfig
 import com.v2ray.ang.extension.toast
 import com.v2ray.ang.util.AngConfigManager
 import com.v2ray.ang.util.Utils
-import kotlinx.android.synthetic.main.activity_server4.*
+import kotlinx.android.synthetic.main.activity_server2.*
+import java.lang.Exception
 
-class Server4Activity : BaseActivity() {
+class CustomActivity : BaseActivity() {
     companion object {
         private const val REQUEST_SCAN = 1
     }
@@ -27,7 +32,7 @@ class Server4Activity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_server4)
+        setContentView(R.layout.activity_server2)
 
         configs = AngConfigManager.configs
         edit_index = intent.getIntExtra("position", -1)
@@ -48,10 +53,7 @@ class Server4Activity : BaseActivity() {
      */
     fun bindingServer(vmess: AngConfig.VmessBean): Boolean {
         et_remarks.text = Utils.getEditable(vmess.remarks)
-
-        et_address.text = Utils.getEditable(vmess.address)
-        et_port.text = Utils.getEditable(vmess.port.toString())
-
+        tv_content.text = Editable.Factory.getInstance().newEditable(defaultDPreference.getPrefString(AppConfig.ANG_CONFIG + edit_guid, ""))
         return true
     }
 
@@ -60,9 +62,6 @@ class Server4Activity : BaseActivity() {
      */
     fun clearServer(): Boolean {
         et_remarks.text = null
-        et_address.text = null
-        et_port.text = Utils.getEditable("10086")
-
         return true
     }
 
@@ -70,37 +69,40 @@ class Server4Activity : BaseActivity() {
      * save server config
      */
     fun saveServer(): Boolean {
-        val vmess: AngConfig.VmessBean
-        if (edit_index >= 0) {
-            vmess = configs.vmess[edit_index]
-        } else {
-            vmess = AngConfig.VmessBean()
-        }
+        var saveSuccess: Boolean
+        val vmess = configs.vmess[edit_index]
 
-        vmess.guid = edit_guid
         vmess.remarks = et_remarks.text.toString()
-        vmess.address = et_address.text.toString()
-        vmess.port = Utils.parseInt(et_port.text.toString())
 
         if (TextUtils.isEmpty(vmess.remarks)) {
             toast(R.string.server_lab_remarks)
-            return false
-        }
-        if (TextUtils.isEmpty(vmess.address)) {
-            toast(R.string.server_lab_address3)
-            return false
-        }
-        if (TextUtils.isEmpty(vmess.port.toString()) || vmess.port <= 0) {
-            toast(R.string.server_lab_port3)
-            return false
+            saveSuccess = false
         }
 
-        if (AngConfigManager.addSocksServer(vmess, edit_index) == 0) {
+
+        if (AngConfigManager.addCustomServer(vmess, edit_index) == 0) {
             toast(R.string.toast_success)
+            saveSuccess = true
+        } else {
+            toast(R.string.toast_failure)
+            saveSuccess = false
+        }
+
+
+        try {
+            Gson().fromJson<Object>(tv_content.text.toString(), Object::class.java)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            toast(R.string.toast_malformed_josn)
+            saveSuccess = false
+        }
+
+        if (saveSuccess) {
+            //update config
+            defaultDPreference.setPrefString(AppConfig.ANG_CONFIG + edit_guid, tv_content.text.toString())
             finish()
             return true
         } else {
-            toast(R.string.toast_failure)
             return false
         }
     }

@@ -119,13 +119,11 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
                 val intent = Intent().putExtra("position", position)
                         .putExtra("isRunning", !changeable)
                 if (configType == EConfigType.VMESS) {
-                    mActivity.startActivity(intent.setClass(mActivity, ServerActivity::class.java))
+                    mActivity.startActivity(intent.setClass(mActivity, VmessActivity::class.java))
                 } else if (configType == EConfigType.CUSTOM) {
-                    mActivity.startActivity(intent.setClass(mActivity, Server2Activity::class.java))
+                    mActivity.startActivity(intent.setClass(mActivity, CustomActivity::class.java))
                 } else if (configType == EConfigType.SHADOWSOCKS) {
-                    mActivity.startActivity(intent.setClass(mActivity, Server3Activity::class.java))
-                } else if (configType == EConfigType.SOCKS) {
-                    mActivity.startActivity(intent.setClass(mActivity, Server4Activity::class.java))
+                    mActivity.startActivity(intent.setClass(mActivity, ShadowsocksActivity::class.java))
                 }
             }
             holder.layout_remove.setOnClickListener {

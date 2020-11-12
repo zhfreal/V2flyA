@@ -3,6 +3,7 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="drawerArrowStyle">@style/LeftButton</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
     </style>
 
     <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar">

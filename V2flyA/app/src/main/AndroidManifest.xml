@@ -50,16 +50,13 @@
                     android:resource="@xml/shortcuts" />
         </activity>
         <activity
-                android:name=".ui.ServerActivity"
+                android:name=".ui.VmessActivity"
                 android:windowSoftInputMode="stateUnchanged" />
         <activity
-                android:name=".ui.Server2Activity"
+                android:name=".ui.CustomActivity"
                 android:windowSoftInputMode="stateUnchanged" />
         <activity
-                android:name=".ui.Server3Activity"
-                android:windowSoftInputMode="stateUnchanged" />
-        <activity
-                android:name=".ui.Server4Activity"
+                android:name=".ui.ShadowsocksActivity"
                 android:windowSoftInputMode="stateUnchanged" />
         <activity android:name=".ui.SettingsActivity" />
         <activity android:name=".ui.PerAppProxyActivity" />

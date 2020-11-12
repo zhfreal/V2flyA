@@ -10,9 +10,9 @@ import com.v2ray.ang.dto.AngConfig
 import com.v2ray.ang.extension.toast
 import com.v2ray.ang.util.AngConfigManager
 import com.v2ray.ang.util.Utils
-import kotlinx.android.synthetic.main.activity_server3.*
+import kotlinx.android.synthetic.main.activity_server.*
 
-class Server3Activity : BaseActivity() {
+class VmessActivity : BaseActivity() {
     companion object {
         private const val REQUEST_SCAN = 1
     }
@@ -25,12 +25,21 @@ class Server3Activity : BaseActivity() {
     private var edit_guid: String = ""
     private var isRunning: Boolean = false
     private val securitys: Array<out String> by lazy {
-        resources.getStringArray(R.array.ss_securitys)
+        resources.getStringArray(R.array.securitys)
+    }
+    private val networks: Array<out String> by lazy {
+        resources.getStringArray(R.array.networks)
+    }
+    private val headertypes: Array<out String> by lazy {
+        resources.getStringArray(R.array.headertypes)
+    }
+    private val streamsecuritys: Array<out String> by lazy {
+        resources.getStringArray(R.array.streamsecuritys)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_server3)
+        setContentView(R.layout.activity_server)
 
         configs = AngConfigManager.configs
         edit_index = intent.getIntExtra("position", -1)
@@ -55,11 +64,28 @@ class Server3Activity : BaseActivity() {
         et_address.text = Utils.getEditable(vmess.address)
         et_port.text = Utils.getEditable(vmess.port.toString())
         et_id.text = Utils.getEditable(vmess.id)
+        et_alterId.text = Utils.getEditable(vmess.alterId.toString())
+
         val security = Utils.arrayFind(securitys, vmess.security)
         if (security >= 0) {
             sp_security.setSelection(security)
         }
+        val network = Utils.arrayFind(networks, vmess.network)
+        if (network >= 0) {
+            sp_network.setSelection(network)
+        }
 
+        val headerType = Utils.arrayFind(headertypes, vmess.headerType)
+        if (headerType >= 0) {
+            sp_header_type.setSelection(headerType)
+        }
+        et_request_host.text = Utils.getEditable(vmess.requestHost)
+        et_path.text = Utils.getEditable(vmess.path)
+
+        val streamSecurity = Utils.arrayFind(streamsecuritys, vmess.streamSecurity)
+        if (streamSecurity >= 0) {
+            sp_stream_security.setSelection(streamSecurity)
+        }
         return true
     }
 
@@ -71,8 +97,14 @@ class Server3Activity : BaseActivity() {
         et_address.text = null
         et_port.text = Utils.getEditable("10086")
         et_id.text = null
+        et_alterId.text = Utils.getEditable("64")
         sp_security.setSelection(0)
+        sp_network.setSelection(0)
 
+        sp_header_type.setSelection(0)
+        et_request_host.text = null
+        et_path.text = null
+        sp_stream_security.setSelection(0)
         return true
     }
 
@@ -92,26 +124,37 @@ class Server3Activity : BaseActivity() {
         vmess.address = et_address.text.toString()
         vmess.port = Utils.parseInt(et_port.text.toString())
         vmess.id = et_id.text.toString()
+        vmess.alterId = Utils.parseInt(et_alterId.text.toString())
         vmess.security = securitys[sp_security.selectedItemPosition]
+        vmess.network = networks[sp_network.selectedItemPosition]
+
+        vmess.headerType = headertypes[sp_header_type.selectedItemPosition]
+        vmess.requestHost = et_request_host.text.toString()
+        vmess.path = et_path.text.toString()
+        vmess.streamSecurity = streamsecuritys[sp_stream_security.selectedItemPosition]
 
         if (TextUtils.isEmpty(vmess.remarks)) {
             toast(R.string.server_lab_remarks)
             return false
         }
         if (TextUtils.isEmpty(vmess.address)) {
-            toast(R.string.server_lab_address3)
+            toast(R.string.server_lab_address)
             return false
         }
         if (TextUtils.isEmpty(vmess.port.toString()) || vmess.port <= 0) {
-            toast(R.string.server_lab_port3)
+            toast(R.string.server_lab_port)
             return false
         }
         if (TextUtils.isEmpty(vmess.id)) {
-            toast(R.string.server_lab_id3)
+            toast(R.string.server_lab_id)
+            return false
+        }
+        if (TextUtils.isEmpty(vmess.alterId.toString()) || vmess.alterId < 0) {
+            toast(R.string.server_lab_alterid)
             return false
         }
 
-        if (AngConfigManager.addShadowsocksServer(vmess, edit_index) == 0) {
+        if (AngConfigManager.addServer(vmess, edit_index) == 0) {
             toast(R.string.toast_success)
             finish()
             return true

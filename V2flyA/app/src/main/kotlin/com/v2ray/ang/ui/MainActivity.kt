@@ -186,12 +186,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             true
         }
         R.id.import_manually_vmess -> {
-            startActivity(getOptionIntent().setClass(this, ServerActivity::class.java))
+            startActivity(getOptionIntent().setClass(this, VmessActivity::class.java))
             adapter.updateConfigList()
             true
         }
         R.id.import_manually_ss -> {
-            startActivity(getOptionIntent().setClass(this, Server3Activity::class.java))
+            startActivity(getOptionIntent().setClass(this, ShadowsocksActivity::class.java))
             adapter.updateConfigList()
             true
         }
