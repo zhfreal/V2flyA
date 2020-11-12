@@ -50,13 +50,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             field = value
             adapter.changeable = !value
             if (value) {
-                fab.setImageResource(R.drawable.ic_v)
+                fab.setImageResource(R.drawable.ic_action_done)
                 tv_test_state.text = getString(R.string.connection_connected)
             } else {
-                fab.setImageResource(R.drawable.ic_v_idle)
+                fab.setImageResource(R.drawable.ic_fab_uncheck)
                 tv_test_state.text = getString(R.string.connection_not_connected)
             }
-            hideCircle()
         }
     private val adapter by lazy { MainRecyclerAdapter(this) }
     private var mItemTouchHelper: ItemTouchHelper? = null
@@ -118,9 +117,9 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         if (configs.index < 0) {
             return
         }
-        showCircle()
+        fab.setImageResource(R.drawable.ic_action_done)
         if (!Utils.startVService(this)) {
-            hideCircle()
+            fab.setImageResource(R.drawable.ic_fab_uncheck)
         }
     }
 
@@ -506,22 +505,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return super.onKeyDown(keyCode, event)
     }
 
-    fun showCircle() {
-        fabProgressCircle?.show()
-    }
-
-    fun hideCircle() {
-        try {
-            Observable.timer(300, TimeUnit.MILLISECONDS)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        if (fabProgressCircle.isShown) {
-                            fabProgressCircle.hide()
-                        }
-                    }
-        } catch (e: Exception) {
-        }
-    }
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {

@@ -5,7 +5,7 @@
         android:id="@+id/select_all"
         android:icon="@drawable/ic_select_all_white_24dp"
         android:title="@string/menu_item_select_all"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/select_proxy_app"

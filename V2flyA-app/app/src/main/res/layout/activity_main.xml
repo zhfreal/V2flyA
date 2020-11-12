@@ -24,7 +24,7 @@
             android:id="@+id/layout_test"
             android:layout_width="match_parent"
             android:layout_height="@dimen/connection_test_height"
-            android:background="@drawable/background_test_button"
+            android:background="@drawable/background_colorful"
             android:gravity="center|start"
             android:clickable="true"
             android:focusable="true"
@@ -42,27 +42,19 @@
                 android:textColor="@android:color/darker_gray" />
         </LinearLayout>
 
-        <com.github.jorgecastilloprz.FABProgressCircle
-            android:id="@+id/fabProgressCircle"
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/layout_test"
-            app:layout_constraintTop_toTopOf="@+id/layout_test"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_fab_uncheck"
-                android:clickable="true"
-                android:focusable="true"
-                tools:ignore="ContentDescription" />
-
-        </com.github.jorgecastilloprz.FABProgressCircle>
+            android:src="@drawable/ic_fab_uncheck"
+            android:clickable="true"
+            tools:ignore="ContentDescription"
+            app:layout_constraintEnd_toEndOf="@+id/appBarLayout"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_view"
+            android:layout_marginEnd="30dp"
+            android:focusable="true" />
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
