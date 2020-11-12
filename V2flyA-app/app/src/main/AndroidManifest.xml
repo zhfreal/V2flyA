@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.v2flya">
+
+    <supports-screens
+            android:anyDensity="true"
+            android:smallScreens="true"
+            android:normalScreens="true"
+            android:largeScreens="true"
+            android:xlargeScreens="true" />
+
+    <uses-permission
+            android:name="android.permission.QUERY_ALL_PACKAGES"
+            tools:ignore="QueryAllPackagesPermission" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+            android:name="com.v2flya.AngApplication"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme"
+            tools:ignore="AllowBackup">
+        <activity
+                android:name="com.v2flya.ui.MainActivity"
+                android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE_PREFERENCES" />
+            </intent-filter>
+
+            <meta-data
+                    android:name="android.app.shortcuts"
+                    android:resource="@xml/shortcuts" />
+        </activity>
+        <activity
+                android:name="com.v2flya.ui.VmessActivity"
+                android:windowSoftInputMode="stateUnchanged" />
+        <activity
+                android:name="com.v2flya.ui.CustomActivity"
+                android:windowSoftInputMode="stateUnchanged" />
+        <activity
+                android:name="com.v2flya.ui.ShadowsocksActivity"
+                android:windowSoftInputMode="stateUnchanged" />
+        <activity android:name="com.v2flya.ui.SettingsActivity" />
+        <activity android:name="com.v2flya.ui.PerAppProxyActivity" />
+        <activity android:name="com.v2flya.ui.ScannerActivity" />
+        <activity android:name="com.v2flya.ui.LogcatActivity" />
+        <activity
+                android:name="com.v2flya.ui.RoutingSettingsActivity"
+                android:windowSoftInputMode="stateUnchanged" />
+        <activity android:name="com.v2flya.ui.SubSettingActivity" />
+
+        <activity android:name="com.v2flya.ui.SubEditActivity" />
+        <activity android:name="com.v2flya.ui.ScScannerActivity" />
+        <activity
+                android:name="com.v2flya.ui.ScSwitchActivity"
+                android:excludeFromRecents="true"
+                android:process=":RunSoLibV2RayDaemon" />
+
+        <service
+                android:name="com.v2flya.service.V2RayVpnService"
+                android:enabled="true"
+                android:exported="false"
+                android:label="@string/app_name"
+                android:permission="android.permission.BIND_VPN_SERVICE"
+                android:process=":RunSoLibV2RayDaemon">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+            <meta-data
+                    android:name="android.net.VpnService.SUPPORTS_ALWAYS_ON"
+                    android:value="true" />
+        </service>
+
+        <service
+                android:name="com.v2flya.service.V2RayProxyOnlyService"
+                android:exported="false"
+                android:label="@string/app_name"
+                android:process=":RunSoLibV2RayDaemon" />
+
+        <receiver
+                android:name="com.v2flya.receiver.WidgetProvider"
+                android:process=":RunSoLibV2RayDaemon">
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/app_widget_provider" />
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="ang.action.widget.click" />
+                <action android:name="ang.action.activity" />
+            </intent-filter>
+        </receiver>
+
+        <service
+                android:name="com.v2flya.service.QSTileService"
+                android:icon="@drawable/ic_v"
+                android:label="@string/app_tile_name"
+                android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+                android:process=":RunSoLibV2RayDaemon">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+        <activity
+                android:name="com.v2flya.ui.TaskerActivity"
+                android:icon="@mipmap/ic_launcher"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+                android:name="com.v2flya.receiver.TaskerReceiver"
+                android:process=":RunSoLibV2RayDaemon"
+                tools:ignore="ExportedReceiver">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
