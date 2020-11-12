@@ -1,17 +1,41 @@
-<!--夜间主题-->
+<!--白天主题-->
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="drawerArrowStyle">@style/LeftButton</item>
-        <item name="android:textColorSecondary">#FFFFFF</item>
+        <item name="drawerArrowStyle">@style/抽屉按钮</item>
+        <item name="android:statusBarColor">@color/主色调</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <!--傻逼MD官方实现导致右侧折叠菜单按钮是黑色，受主题textColorSecondary属性控制-->
+        <item name="android:textColorSecondary">@color/主色调内容</item>
+        <item name="android:textColor">@color/主色调内容</item>
+        <item name="actionOverflowMenuStyle">@style/溢出菜单</item>
     </style>
 
     <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar">
-        <item name="titleTextColor">#FFFFFF</item>
-        <item name="android:background">#000000</item>
+        <item name="titleTextColor">@color/主色调内容</item>
+        <item name="android:background">@color/主色调</item>
     </style>
 
-    <style name="LeftButton" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+    <!--傻逼MD官方实现导致左侧抽屉箭头切换按钮是黑色，受主题drawerArrowStyle属性控制-->
+    <style name="抽屉按钮" parent="@style/Widget.AppCompat.DrawerArrowToggle">
         <item name="color">#FFFFFF</item>
     </style>
+
+    <!--溢出菜单，受主题actionOverflowMenuStyle属性控制-->
+    <style name="溢出菜单" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:popupBackground">@color/主色调</item>
+        <item name="android:overlapAnchor">false</item>
+    </style>
+
+    <style name="悬浮按钮" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="borderWidth">0dp</item>
+        <item name="android:layout_margin">20dp</item>
+        <item name="tint">@color/主色调内容</item>
+        <item name="backgroundTint">@color/主色调</item>
+    </style>
+
+    <color name="主色调">#1A1A1A</color>
+    <color name="主色调内容">#FFFFFF</color>
+    <color name="正文背景">#363636</color>
+    <color name="正文内容">#FFFFFF</color>
 </resources>

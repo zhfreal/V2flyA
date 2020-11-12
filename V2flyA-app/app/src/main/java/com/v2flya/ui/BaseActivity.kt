@@ -1,9 +1,9 @@
 package com.v2flya.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.view.MenuItem
 
-abstract class BaseActivity : AppCompatActivity() {
+
+abstract class BaseActivity : MyActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         android.R.id.home -> {
             onBackPressed()
@@ -11,4 +11,5 @@ abstract class BaseActivity : AppCompatActivity() {
         }
         else -> super.onOptionsItemSelected(item)
     }
+
 }

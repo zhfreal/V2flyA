@@ -1,18 +1,18 @@
 package com.v2flya.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AlertDialog
-import androidx.recyclerview.widget.RecyclerView
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.v2flya.ui.MainActivity
-import com.v2flya.AppConfig
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
 import com.v2flya.R
 import com.v2flya.dto.AngConfig
 import com.v2flya.dto.EConfigType
+import com.v2flya.dto.EConfigType.*
 import com.v2flya.extension.toast
 import com.v2flya.helper.ItemTouchHelperAdapter
 import com.v2flya.helper.ItemTouchHelperViewHolder
@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.item_qrcode.view.*
 import kotlinx.android.synthetic.main.item_recycler_main.view.*
 import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<MainRecyclerAdapter.BaseViewHolder>()
@@ -52,6 +53,7 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
 
     override fun getItemCount() = configs.vmess.count() + 1
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         if (holder is MainViewHolder) {
             val configType = EConfigType.fromInt(configs.vmess[position].configType)
@@ -73,7 +75,7 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
             }
 
             var shareOptions = share_method.asList()
-            if (configType == EConfigType.CUSTOM) {
+            if (configType == CUSTOM) {
                 holder.type.text = mActivity.getString(R.string.server_customize_config)
                 val serverOutbound = V2rayConfigUtil.getCustomConfigServerOutbound(mActivity.applicationContext, configs.vmess[position].guid)
                 if (serverOutbound == null) {
@@ -83,7 +85,7 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
                 }
                 shareOptions = shareOptions.takeLast(1)
             } else {
-                holder.type.text = configType?.name?.toLowerCase()
+                holder.type.text = configType?.name?.toLowerCase(Locale.ROOT)
                 holder.statistics.text = "$address : $port"
             }
 
@@ -92,7 +94,7 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
                     try {
                         when (i) {
                             0 -> {
-                                if (configType == EConfigType.CUSTOM) {
+                                if (configType == CUSTOM) {
                                     shareFullContent(position)
                                 } else {
                                     val iv = mActivity.layoutInflater.inflate(R.layout.item_qrcode, null)
@@ -119,12 +121,18 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
             holder.layout_edit.setOnClickListener {
                 val intent = Intent().putExtra("position", position)
                         .putExtra("isRunning", !changeable)
-                if (configType == EConfigType.VMESS) {
-                    mActivity.startActivity(intent.setClass(mActivity, VmessActivity::class.java))
-                } else if (configType == EConfigType.CUSTOM) {
-                    mActivity.startActivity(intent.setClass(mActivity, CustomActivity::class.java))
-                } else if (configType == EConfigType.SHADOWSOCKS) {
-                    mActivity.startActivity(intent.setClass(mActivity, ShadowsocksActivity::class.java))
+                when (configType) {
+                    VMESS -> {
+                        mActivity.startActivity(intent.setClass(mActivity, VmessActivity::class.java))
+                    }
+                    CUSTOM -> {
+                        mActivity.startActivity(intent.setClass(mActivity, CustomActivity::class.java))
+                    }
+                    SHADOWSOCKS -> {
+                        mActivity.startActivity(intent.setClass(mActivity, ShadowsocksActivity::class.java))
+                    }
+                    SOCKS -> TODO()
+                    null -> TODO()
                 }
             }
             holder.layout_remove.setOnClickListener {
@@ -151,13 +159,7 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
         }
         if (holder is FooterViewHolder) {
             //if (activity?.defaultDPreference?.getPrefBoolean(AppConfig.PREF_INAPP_BUY_IS_PREMIUM, false)) {
-            if (true) {
-                holder.layout_edit.visibility = View.INVISIBLE
-            } else {
-                holder.layout_edit.setOnClickListener {
-                    Utils.openUri(mActivity, AppConfig.promotionUrl)
-                }
-            }
+            holder.layout_edit.visibility = View.INVISIBLE
         }
     }
 
@@ -170,12 +172,12 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        when (viewType) {
+        return when (viewType) {
             VIEW_TYPE_ITEM ->
-                return MainViewHolder(LayoutInflater.from(parent.context)
+                MainViewHolder(LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_recycler_main, parent, false))
             else ->
-                return FooterViewHolder(LayoutInflater.from(parent.context)
+                FooterViewHolder(LayoutInflater.from(parent.context)
                         .inflate(R.layout.item_recycler_footer, parent, false))
         }
     }
@@ -184,21 +186,15 @@ class MainRecyclerAdapter(val activity: MainActivity) : RecyclerView.Adapter<Mai
         configs = AngConfigManager.configs
         notifyDataSetChanged()
     }
-
-//    fun updateSelectedItem() {
-//        updateSelectedItem(configs.index)
-//    }
-
     fun updateSelectedItem(pos: Int) {
-        //notifyItemChanged(pos)
         notifyItemRangeChanged(pos, itemCount - pos)
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == configs.vmess.count()) {
-            return VIEW_TYPE_FOOTER
+        return if (position == configs.vmess.count()) {
+            VIEW_TYPE_FOOTER
         } else {
-            return VIEW_TYPE_ITEM
+            VIEW_TYPE_ITEM
         }
     }
 

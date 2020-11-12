@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.net.Uri
 import android.net.VpnService
 import android.os.Bundle
@@ -25,17 +26,13 @@ import com.v2flya.dto.EConfigType
 import com.v2flya.extension.defaultDPreference
 import com.v2flya.extension.toast
 import com.v2flya.helper.SimpleItemTouchHelperCallback
-import com.v2flya.ui.*
 import com.v2flya.util.*
 import com.v2flya.util.AngConfigManager.configs
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import libv2ray.Libv2ray
-import rx.Observable
-import rx.android.schedulers.AndroidSchedulers
 import java.lang.ref.SoftReference
 import java.net.URL
-import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
     companion object {
@@ -51,10 +48,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             adapter.changeable = !value
             if (value) {
                 fab.setImageResource(R.drawable.ic_action_done)
-                tv_test_state.text = getString(R.string.connection_connected)
             } else {
                 fab.setImageResource(R.drawable.ic_fab_uncheck)
-                tv_test_state.text = getString(R.string.connection_not_connected)
             }
         }
     private val adapter by lazy { MainRecyclerAdapter(this) }
@@ -80,19 +75,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 }
             } else {
                 startV2Ray()
-            }
-        }
-        layout_test.setOnClickListener {
-            if (isRunning) {
-                val socksPort = 10808
-                //val socksPort = Utils.parseInt(defaultDPreference.getPrefString(SettingsActivity.PREF_SOCKS_PORT, "10808"))
-                tv_test_state.text = getString(R.string.connection_test_testing)
-                GlobalScope.launch(Dispatchers.IO) {
-                    val result = Utils.testConnection(this@MainActivity, socksPort)
-                    launch(Dispatchers.Main) {
-                        tv_test_state.text = Utils.getEditable(result)
-                    }
-                }
             }
         }
 
