@@ -1,4 +1,4 @@
-<!--白天主题-->
+<!--夜间主题-->
 <resources>
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -14,11 +14,18 @@
     <style name="ToolBar" parent="Widget.MaterialComponents.Toolbar">
         <item name="titleTextColor">@color/主色调内容</item>
         <item name="android:background">@color/主色调</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:titleTextAppearance">@style/TextAppearance.AppCompat.Title</item>
+    </style>
+
+    <style name="图片">
+        <item name="android:scaleType">fitCenter</item>
     </style>
 
     <!--傻逼MD官方实现导致左侧抽屉箭头切换按钮是黑色，受主题drawerArrowStyle属性控制-->
     <style name="抽屉按钮" parent="@style/Widget.AppCompat.DrawerArrowToggle">
-        <item name="color">#FFFFFF</item>
+        <item name="color">@color/主色调内容</item>
     </style>
 
     <!--溢出菜单，受主题actionOverflowMenuStyle属性控制-->
@@ -33,6 +40,15 @@
         <item name="tint">@color/主色调内容</item>
         <item name="backgroundTint">@color/主色调</item>
     </style>
+
+    <style name="侧滑菜单" parent="Widget.Design.NavigationView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start|left</item>
+        <item name="itemTextColor">@color/主色调内容</item>
+        <item name="itemIconTint">@color/主色调内容</item>
+    </style>
+
 
     <color name="主色调">#1A1A1A</color>
     <color name="主色调内容">#FFFFFF</color>
